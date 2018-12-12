@@ -15,9 +15,9 @@ public class BinariaRecursiva implements IBusqueda {
     public TipoElem Buscar(ArrayList<TipoElem> x, int lb, int ub, TipoElem key) {
         int mid = (lb + ub) / 2;
         if (lb <= ub)
-            if (key.Edad() == x.get(mid).Edad())
+            if (key.Nombre().equals(x.get(mid).Nombre()))
                 return x.get(mid);
-            else if (key.Edad() < x.get(mid).Edad())
+            else if (key.Nombre().compareTo(x.get(mid).Nombre()) < 0)
                 return Buscar(x,lb,mid - 1,key);
             else
                 return Buscar(x,mid + 1,ub,key);
