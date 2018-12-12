@@ -20,7 +20,8 @@ public class Hashing implements IOrdenacion {
     }
 
     public void Ordenar(ArrayList<TipoElem> x, int lb, int ub) {
-        tablaHash = new Lista["ABCDEFGHIJKLMNÑOPQRSTUVWXYZ".length()];
+        int len = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".length();
+        tablaHash = new Lista[len];
         
         
         for (int i = 0; i < tablaHash.length; i++)
@@ -30,7 +31,7 @@ public class Hashing implements IOrdenacion {
             char primLetra = (char) ((int) x.get(i).Nombre().toUpperCase().charAt(0) - 65);
             
             
-            int indice = primLetra/tablaHash.length >= tablaHash.length? tablaHash.length : primLetra/tablaHash.length;
+            int indice = primLetra/len >= len? len : primLetra/len;
             tablaHash[indice].InsOrden(x.get(i));
         }
         int j=0;

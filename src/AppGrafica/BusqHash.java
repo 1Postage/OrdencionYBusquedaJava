@@ -5,6 +5,8 @@
  */
 package AppGrafica;
 
+import sun.security.util.Length;
+
 /**
  *
  * @author friosa
@@ -12,10 +14,11 @@ package AppGrafica;
 public class BusqHash {
     public TipoElem Buscar(Lista[] tabla, TipoElem key)
         {
-            int indice = key.Edad()/10 >= 10? 9 : key.Edad()/10;
+            int len = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".length();
+            int indice = key.Edad()/len >= len? 9 : key.Edad()/len;
             Nodo p = tabla[indice].Cab();
             while (p != null)
-                if (p.Info().Edad() == key.Edad())
+                if (p.Info().Nombre().equals(key.Nombre()))
                     return p.Info();
                 else
                     p = p.Sig();
