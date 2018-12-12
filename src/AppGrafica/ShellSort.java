@@ -15,7 +15,8 @@ public class ShellSort implements IOrdenacion {
     public void Ordenar(ArrayList<TipoElem> x, int lb, int ub) {
         int[] increments = {
             1, 5, 10, 25, 50, 100, 125, 200, 500, 1000, 1250, 2000, 2500, 5000, 10000,
-            12500, 25000, 50000, 100000, 250000 };
+            12500, 25000, 50000, 100000, 250000
+        };
         
         
         int numIncs = increments.length;

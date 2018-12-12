@@ -13,6 +13,13 @@ import java.util.ArrayList;
  */
 public class Secuencial implements IBusqueda {
     public TipoElem Buscar(ArrayList<TipoElem> x, int lb,int ub, TipoElem key) {
-        return new TipoElem("");
+        
+        
+        for (int i = 0; i < x.size(); i++) {
+            if(key.Nombre().equals(x.get(i).Nombre()))
+                return x.get(i);
+        }
+        
+        return new TipoElem("No encontrado");
     }
 }

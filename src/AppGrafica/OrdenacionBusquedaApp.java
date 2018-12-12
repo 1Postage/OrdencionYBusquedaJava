@@ -112,6 +112,11 @@ public class OrdenacionBusquedaApp extends javax.swing.JFrame {
         buttonGroup1.add(rbShellSort);
         rbShellSort.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         rbShellSort.setText("SHELL SORT");
+        rbShellSort.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbShellSortActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(rbHashing);
         rbHashing.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -421,9 +426,22 @@ public class OrdenacionBusquedaApp extends javax.swing.JFrame {
 
 
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
-        String leido = ArchTexto.Leer(!jtfFileName.getText().isEmpty() ? 
+        String leido = ArchTexto.LeerBin(!jtfFileName.getText().isEmpty() ? 
                                         jtfFileName.getText():
                                         "data.txt");
+        
+        String[] lineas = leido.split("\n");
+        x.clear();
+        for(String linea : lineas)
+        {
+            String nombre = linea.split(",")[0];
+            String edad = linea.split(",")[1];
+            String cxo = linea.split(",")[2];
+            TipoElem e = new TipoElem(nombre, Integer.parseInt(edad),cxo.toCharArray()[0]);
+            x.add(e);
+        }
+        
+        
         Mensaje("Cargado con exito");
     }//GEN-LAST:event_btnCargarActionPerformed
 
@@ -463,12 +481,8 @@ public class OrdenacionBusquedaApp extends javax.swing.JFrame {
         ifce.Ordenar(x, 0, 500000 - 1); // Ordenamiento
 
         long tiempo2 = System.currentTimeMillis();
-
-//        System.out.println("Tiempo 1:" + tiempo1);
-//        System.out.println("Tiempo 2: " + tiempo2);
-//        System.out.println("Tiempo transcurrido : " + (tiempo2 - tiempo1) + "ms");
-
-        //lblTiempoMS.setText("" + (tiempo2 - tiempo1) / 1000.0 + " s");
+        
+        
         lModel.addElement("" + (tiempo2 - tiempo1) / 1000.0 + " s, " + tipoOrden);
         
 
@@ -491,6 +505,8 @@ public class OrdenacionBusquedaApp extends javax.swing.JFrame {
                             nombresF.get(r.nextInt(nombresF.size()))
                             )  + " " + apellidos.get(r.nextInt(apellidos.size())) + " " + apellidos.get(r.nextInt(apellidos.size()));
             
+            nombre.toUpperCase().replaceAll("Ñ", "N");
+            
             int edad = 10 +r.nextInt(90);
             char sexo = isMasculino ? 'M' : 'F';
 
@@ -504,12 +520,12 @@ public class OrdenacionBusquedaApp extends javax.swing.JFrame {
                                 "data.txt",
                             x);
         
-        Mensaje("Correcto");
+        Mensaje("Archivo generado");
         
     }//GEN-LAST:event_btnGenerarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        TipoElem e = new TipoElem(jtfBusqueda.getText());
+        TipoElem e = new TipoElem(jtfBusqueda.getText().toUpperCase());
         IBusqueda busqueda = null;
 
         if (rbBinaria.isSelected()) 
@@ -530,6 +546,10 @@ public class OrdenacionBusquedaApp extends javax.swing.JFrame {
         resul += e.Edad() + "\n";
         txaResul.setText(resul);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void rbShellSortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbShellSortActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbShellSortActionPerformed
 
     
     private void Mensaje(String mensaje)

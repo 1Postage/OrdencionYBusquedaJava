@@ -17,8 +17,6 @@ public class InsSimple implements IOrdenacion {
         TipoElem y;
         for (k = 1; k < ub + 1; k++) {
             y = x.get(k);
-            // .Nombre().compareTo(a.Nombre()) <= 0
-            // y.Calif() < x.get(i).Calif()
             for (i = k - 1; i >= 0 && y.Nombre().compareTo(x.get(i).Nombre()) < 0; i--)
                 x.set(i + 1,x.get(i));
             x.set(i + 1,y);

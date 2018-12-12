@@ -15,7 +15,7 @@ public class BusqHash {
     public TipoElem Buscar(Lista[] tabla, TipoElem key)
         {
             int len = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".length();
-            int indice = key.Edad()/len >= len? 9 : key.Edad()/len;
+            int indice = key.Edad()/len >= len? len : key.Edad()/len;
             Nodo p = tabla[indice].Cab();
             while (p != null)
                 if (p.Info().Nombre().equals(key.Nombre()))

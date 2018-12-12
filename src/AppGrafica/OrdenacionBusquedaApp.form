@@ -184,6 +184,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="SHELL SORT"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbShellSortActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="rbHashing">
           <Properties>
