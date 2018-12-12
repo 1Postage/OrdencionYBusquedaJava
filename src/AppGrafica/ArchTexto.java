@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
@@ -28,10 +29,14 @@ public class ArchTexto {
         }
     }
     
-    public static void Escribir(String nombreArchivo, String data){
+    public static void Escribir(String nombreArchivo, ArrayList<TipoElem> x){
         try (FileWriter fw = new FileWriter(nombreArchivo)){
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(data);
+            PrintWriter pw = new PrintWriter(fw);
+            
+            for(TipoElem e : x)
+                pw.println(e.toString());
+            pw.close();
+            
                 
         }catch(IOException e){
             System.out.println("ERROR ESCRIBIR: " + e.getMessage());
@@ -44,8 +49,7 @@ public class ArchTexto {
     
     public static String Leer(String nombreArchivo) {
         String resultado = "";
-        try (InputStream mInputStream = OrdenacionBusquedaApp.class.getResourceAsStream(nombreArchivo)) {
-            BufferedReader br = new BufferedReader(new InputStreamReader(mInputStream));
+        try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
             String linea;
             while ( (linea = br.readLine()) != null){
                 resultado += linea + "\n";
@@ -60,8 +64,17 @@ public class ArchTexto {
     
     public static ArrayList<String> LeerToArrayList(String nombreArchivo){
         ArrayList<String> arr = new ArrayList<>();
-        for( String s : ArchTexto.Leer(nombreArchivo).split("\n"))
-            arr.add(s);
+        try (InputStream mInputStream = OrdenacionBusquedaApp.class.getResourceAsStream(nombreArchivo)) {
+            BufferedReader br = new BufferedReader(new InputStreamReader(mInputStream));
+            String linea;
+            while ( (linea = br.readLine()) != null){
+                arr.add(linea);
+            }
+            br.close();
+        } catch (IOException e) {
+            System.out.println("Error " + e.getMessage());
+            return arr;
+        }
         return arr;
     }
     

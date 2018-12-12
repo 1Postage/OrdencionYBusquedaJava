@@ -91,11 +91,11 @@ public class JFileName extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        result = 1;
-        nombreArchivo = jFNombreArchivo.getText();
-        for(TipoElem e : _x)
-               data += e.toString() + "\n";
-        ArchTexto.Escribir(nombreArchivo, data);
+//        result = 1;
+//        nombreArchivo = jFNombreArchivo.getText();
+//        for(TipoElem e : _x)
+//               data += e.toString() + "\n";
+//        ArchTexto.Escribir(nombreArchivo, data);
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

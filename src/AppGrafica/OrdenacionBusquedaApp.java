@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
@@ -76,6 +77,7 @@ public class OrdenacionBusquedaApp extends javax.swing.JFrame {
         btnCargar = new javax.swing.JButton();
         btnGenerar = new javax.swing.JButton();
         btnVisuaSinOrdenar = new javax.swing.JButton();
+        jtfFileName = new javax.swing.JTextField();
         btnOrdenar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         rbBinaria = new javax.swing.JRadioButton();
@@ -209,21 +211,27 @@ public class OrdenacionBusquedaApp extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
+                .addComponent(btnVisuaSinOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnGenerar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnVisuaSinOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jtfFileName)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCargar)
-                    .addComponent(btnGenerar)
-                    .addComponent(btnVisuaSinOrdenar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnCargar)
+                            .addComponent(btnGenerar)
+                            .addComponent(btnVisuaSinOrdenar))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jtfFileName))
+                .addContainerGap())
         );
 
         btnOrdenar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -360,13 +368,11 @@ public class OrdenacionBusquedaApp extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -410,28 +416,15 @@ public class OrdenacionBusquedaApp extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    ArrayList<String> nombres = new ArrayList<>();
+    ArrayList<String> nombresM, nombresF = new ArrayList<>();
     ArrayList<String> apellidos = new ArrayList<>();
 
 
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
-        Random r = new Random();
-
-        nombres = ArchTexto.LeerToArrayList("/nombres.txt");
-        apellidos = ArchTexto.LeerToArrayList("/apellidos.txt");
-        x.clear();
-        for (int i = 0; i < 500000; i++) {
-            // NOMBRE NOMBRE APELLIDO APELLIDO
-            String nombre = nombres.get(r.nextInt(nombres.size())) + " " + apellidos.get(r.nextInt(apellidos.size())) + " " + apellidos.get(r.nextInt(apellidos.size()));
-            // EDAD 10-99
-            int edad = 10 +r.nextInt(90);
-            char sexo = r.nextBoolean() ? 'H' : 'F';
-
-            TipoElem e = new TipoElem(nombre, edad, sexo);
-            x.add(e);
-
-        }
-        JOptionPane.showMessageDialog(this, "Correcto");
+        String leido = ArchTexto.Leer(!jtfFileName.getText().isEmpty() ? 
+                                        jtfFileName.getText():
+                                        "data.txt");
+        Mensaje("Cargado con exito");
     }//GEN-LAST:event_btnCargarActionPerformed
 
     private void btnVisuaSinOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisuaSinOrdenarActionPerformed
@@ -464,7 +457,6 @@ public class OrdenacionBusquedaApp extends javax.swing.JFrame {
             tipoOrden = "Hash";
         }
 
-        ZonedDateTime utc = ZonedDateTime.now(ZoneOffset.UTC);
 
         long tiempo1 = System.currentTimeMillis();
 
@@ -472,20 +464,48 @@ public class OrdenacionBusquedaApp extends javax.swing.JFrame {
 
         long tiempo2 = System.currentTimeMillis();
 
-        System.out.println("Tiempo 1:" + tiempo1);
-        System.out.println("Tiempo 2: " + tiempo2);
-        System.out.println("Tiempo transcurrido : " + (tiempo2 - tiempo1) + "ms");
+//        System.out.println("Tiempo 1:" + tiempo1);
+//        System.out.println("Tiempo 2: " + tiempo2);
+//        System.out.println("Tiempo transcurrido : " + (tiempo2 - tiempo1) + "ms");
 
-        lblTiempoMS.setText("" + (tiempo2 - tiempo1) / 1000.0 + " s");
+        //lblTiempoMS.setText("" + (tiempo2 - tiempo1) / 1000.0 + " s");
         lModel.addElement("" + (tiempo2 - tiempo1) / 1000.0 + " s, " + tipoOrden);
         
 
-        JOptionPane.showMessageDialog(this, "Terminado");
+        Mensaje("Ordenación terminada");
     }//GEN-LAST:event_btnOrdenarActionPerformed
 
     private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
 
+        Random r = new Random();
 
+        nombresM = ArchTexto.LeerToArrayList("/nombresH.txt");
+        nombresF = ArchTexto.LeerToArrayList("/nombresM.txt");
+        apellidos = ArchTexto.LeerToArrayList("/apellidos.txt");
+        x.clear();
+        for (int i = 0; i < 500000; i++) {
+            
+            boolean isMasculino = r.nextBoolean();
+            String nombre = (isMasculino ? 
+                            nombresM.get(r.nextInt(nombresM.size())) : 
+                            nombresF.get(r.nextInt(nombresF.size()))
+                            )  + " " + apellidos.get(r.nextInt(apellidos.size())) + " " + apellidos.get(r.nextInt(apellidos.size()));
+            
+            int edad = 10 +r.nextInt(90);
+            char sexo = isMasculino ? 'M' : 'F';
+
+            TipoElem e = new TipoElem(nombre, edad, sexo);
+            x.add(e);
+
+        }
+        
+        ArchTexto.Escribir( !jtfFileName.getText().isEmpty() ? 
+                                jtfFileName.getText():
+                                "data.txt",
+                            x);
+        
+        Mensaje("Correcto");
+        
     }//GEN-LAST:event_btnGenerarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -511,6 +531,12 @@ public class OrdenacionBusquedaApp extends javax.swing.JFrame {
         txaResul.setText(resul);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    
+    private void Mensaje(String mensaje)
+    {
+        JOptionPane.showMessageDialog(this, mensaje);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -566,6 +592,7 @@ public class OrdenacionBusquedaApp extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField jtfBusqueda;
+    private javax.swing.JTextField jtfFileName;
     private javax.swing.JLabel lblTiempoMS;
     private javax.swing.JRadioButton rbBinaria;
     private javax.swing.JRadioButton rbBinariaRec;

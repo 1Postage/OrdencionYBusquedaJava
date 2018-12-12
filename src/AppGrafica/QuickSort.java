@@ -30,7 +30,6 @@ public class QuickSort implements IOrdenacion {
         up = ub;
         down = lb;
         while (down < up) {
-            //System.out.println(""+x.get(down).Nombre()+", "+ a.Nombre() + x.get(down).Nombre().compareTo(a.Nombre()) );
             while (x.get(down).Nombre().compareTo(a.Nombre()) <= 0 && down < ub)
                 down++;
             while (x.get(up).Nombre().compareTo(a.Nombre()) > 0)
@@ -44,7 +43,5 @@ public class QuickSort implements IOrdenacion {
         x.set(lb,x.get(up));
         x.set(up,a);
         j[0] = up;
-        
-        
     }
 }
