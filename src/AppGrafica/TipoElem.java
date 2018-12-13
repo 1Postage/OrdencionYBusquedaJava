@@ -34,6 +34,6 @@ public class TipoElem {
     }
     
     public String toString(){
-        return _nombre +", " + _edad + ", "+ _sexo;
+        return _nombre +"," + _edad + ","+ _sexo;
     }
 }

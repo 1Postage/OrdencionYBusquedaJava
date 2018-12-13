@@ -84,7 +84,7 @@ public class OrdenacionBusquedaApp extends javax.swing.JFrame {
         rbBinariaRec = new javax.swing.JRadioButton();
         rbDesmenu = new javax.swing.JRadioButton();
         rbSecuencial = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jtfBusqueda = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -112,11 +112,6 @@ public class OrdenacionBusquedaApp extends javax.swing.JFrame {
         buttonGroup1.add(rbShellSort);
         rbShellSort.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         rbShellSort.setText("SHELL SORT");
-        rbShellSort.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbShellSortActionPerformed(evt);
-            }
-        });
 
         buttonGroup1.add(rbHashing);
         rbHashing.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -266,11 +261,11 @@ public class OrdenacionBusquedaApp extends javax.swing.JFrame {
         rbSecuencial.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         rbSecuencial.setText("Secuancial");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton1.setText("BUSCAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnBuscar.setText("BUSCAR");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -285,7 +280,7 @@ public class OrdenacionBusquedaApp extends javax.swing.JFrame {
                     .addComponent(rbBinariaRec)
                     .addComponent(rbDesmenu)
                     .addComponent(rbSecuencial)
-                    .addComponent(jButton1))
+                    .addComponent(btnBuscar))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -300,7 +295,7 @@ public class OrdenacionBusquedaApp extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(rbSecuencial)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnBuscar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -426,7 +421,7 @@ public class OrdenacionBusquedaApp extends javax.swing.JFrame {
 
 
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
-        String leido = ArchTexto.LeerBin(!jtfFileName.getText().isEmpty() ? 
+        String leido = ArchTexto.LeerS(!jtfFileName.getText().isEmpty() ? 
                                         jtfFileName.getText():
                                         "data.txt");
         
@@ -436,13 +431,13 @@ public class OrdenacionBusquedaApp extends javax.swing.JFrame {
         {
             String nombre = linea.split(",")[0];
             String edad = linea.split(",")[1];
-            String cxo = linea.split(",")[2];
-            TipoElem e = new TipoElem(nombre, Integer.parseInt(edad),cxo.toCharArray()[0]);
+            char sexo = linea.split(",")[2].charAt(0);
+            TipoElem e = new TipoElem(nombre, Integer.parseInt(edad), sexo);
             x.add(e);
         }
         
         
-        Mensaje("Cargado con exito");
+        Mensaje("Archivo leído con éxito");
     }//GEN-LAST:event_btnCargarActionPerformed
 
     private void btnVisuaSinOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisuaSinOrdenarActionPerformed
@@ -520,11 +515,15 @@ public class OrdenacionBusquedaApp extends javax.swing.JFrame {
                                 "data.txt",
                             x);
         
+        
+        // Es trampa no leer el archivo escrito :p
+        x.clear();
+        
         Mensaje("Archivo generado");
         
     }//GEN-LAST:event_btnGenerarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         TipoElem e = new TipoElem(jtfBusqueda.getText().toUpperCase());
         IBusqueda busqueda = null;
 
@@ -534,8 +533,7 @@ public class OrdenacionBusquedaApp extends javax.swing.JFrame {
             busqueda = binRec;
         else if(rbSecuencial.isSelected())
             busqueda = sec;
-        
-        if(rbDesmenu.isSelected())
+        else if(rbDesmenu.isSelected())
             e = busqHash.Buscar(hash.Tabla(), e);
         else
             e = busqueda.Buscar(x,0, x.size(), e);
@@ -545,11 +543,7 @@ public class OrdenacionBusquedaApp extends javax.swing.JFrame {
         resul += e.Sexo() + "\n";
         resul += e.Edad() + "\n";
         txaResul.setText(resul);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void rbShellSortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbShellSortActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbShellSortActionPerformed
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     
     private void Mensaje(String mensaje)
@@ -593,13 +587,13 @@ public class OrdenacionBusquedaApp extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCargar;
     private javax.swing.JButton btnGenerar;
     private javax.swing.JButton btnOrdenar;
     private javax.swing.JButton btnVisuaSinOrdenar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JList<String> jListOrd;

@@ -71,11 +71,10 @@ public class ArchTexto {
 
     public static String LeerBin(String nombreArchiv) {
         String lines = null;
-        try (FileInputStream fin = new FileInputStream(nombreArchiv))
-        {
+        try (FileInputStream fin = new FileInputStream(nombreArchiv)) {
             DataInputStream din;
             din = new DataInputStream(fin);
-            
+
             for (int i = 0; i < 500000; i++) {
                 lines += din.readUTF() + din.readInt() + din.readChar() + "\n";
             }
@@ -87,11 +86,15 @@ public class ArchTexto {
 
     public static String LeerS(String nombreArchivo) {
         String resultado = "";
-        try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
-            String linea;
+        try (FileReader fr = new FileReader(nombreArchivo)) {
+            String linea = "";
+            BufferedReader br = new BufferedReader(fr);
+            StringBuilder sb = new StringBuilder();
             while ((linea = br.readLine()) != null) {
-                resultado += linea + "\n";
+                sb.append(linea + "\n");
             }
+            
+            resultado = sb.toString();
             br.close();
         } catch (IOException e) {
             System.out.println("Error " + e.getMessage());
